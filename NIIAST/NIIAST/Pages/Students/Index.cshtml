@@ -1,0 +1,42 @@
+﻿@page
+@model NIIAST.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    //var photoPath = "~/images/" + (Model.StudentInfo.StuPhotoPath ?? "noimage.jpg");
+}
+<div class="card-deck">
+    @{
+
+        foreach (var item in Model.ObjStudentResultlst)
+        {
+            var photoPath = "~/images/" + (item.StuPhotoPath =="Null" ?"noimage.jpg":item.StuPhotoPath);
+            string  CourseName =Model. GetAllCoursesOfSingleStudent("student_course", item.StudentId);
+            Model.GetCardDeckFeesPaid(item.StudentId);
+        <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
+            <div class="card-header text-center " style="background-color: #ffbb99;height:80px">
+                <h5>@item.StuFirstName</h5>
+                <h6>@CourseName</h6>
+            </div>
+            <div class="card-body" style="background-color: #ffeee6;" >
+                <img class="card-img-top imageThumbnail" src="@photoPath"
+                     asp-append-version="true" />
+                <div>T fees:@Model.TotalFeesDueAmount Fees Paid : @Model.TotalFeesPaid</div>
+            </div>
+           
+            <div class="card-footer text-center" style="background-color: #ffbb99">
+                
+                <a asp-page="/Students/StudentsInfo" asp-route-StudentId="@item.StudentId"
+                   class="btn btn-danger m-1 table-anchor table-anchor-line-height ">Edit&nbsp;&nbsp;</a>
+                <a asp-page="/Students/StudentView" asp-route-StudentId="@item.StudentId"
+                   class="btn btn-danger m-1 table-anchor table-anchor-line-height ">View&nbsp;&nbsp;</a>
+                    <a href="#" class="btn btn-danger m-1  ">Delete</a>
+                </div>
+            </div>
+          
+            }
+
+            }
+        </div>
+
+
+

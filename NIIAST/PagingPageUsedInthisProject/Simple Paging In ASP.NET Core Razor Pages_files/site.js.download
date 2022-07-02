@@ -1,0 +1,12 @@
+﻿$(function () {
+    var cookieName = $('.cookie-box-contents').first().attr('id');
+    if (document.cookie.indexOf(cookieName + "-cookie") === -1) {
+        $('#cookie-warning').show();
+    }
+
+    $('#cookie-close').on('click', function (e) {
+        e.preventDefault();
+        document.cookie = cookieName + "-cookie=yes; max-age=" + 5 * 365 * 24 * 60 * 60;
+        $('#cookie-warning').fadeOut('slow');
+    });
+});

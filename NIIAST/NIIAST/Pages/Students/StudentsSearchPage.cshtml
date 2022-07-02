@@ -1,0 +1,91 @@
+﻿@page
+@model NIIAST.StudentsSearchPageModel
+@{
+    ViewData["Title"] = "StudentsSearchPage";
+}
+
+<form method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+
+                    <div class="col-md-3">
+                        <input type="text" asp-for="@Model.ObjStudentSearch.StuFirstName" class="form-control" placeholder="First Name" />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" asp-for="@Model.ObjStudentSearch.StuPhoneNo" class="form-control" placeholder="Phone no" />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" asp-for="@Model.ObjStudentSearch.StuRegistrationDate" class="form-control" placeholder="Reg Date"
+                               onfocus="(this.type='date')"
+                               onblur="(this.type='text')" />
+                    </div>
+                    <div class="col-md-3">
+                        @*<input type="text" asp-for="@Model.ObjStudentSearch.StuCourse" class="form-control"  placeholder="Course" />*@
+                        <select asp-for="@Model.ObjStudentSearch.StuCourse" asp-items="Model.CourseList" class="form-control" style="width:200px">
+                            <option value="">Select Courses</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn-showproceedings" asp-page-handler="GetStudents">Show Students</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="print_button">Print</div>
+        <div class="PrintArea">
+            <div class="table-responsive text-nowrap">
+                <table id="parties" class="table table-bordered table-hover table-sm">
+                    <thead class="">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email Id</th>
+                            <th>Phone no</th>
+                            <th>Registration Date</th>
+                            <th>Adhar No</th>
+                            <th>Placement Req</th>
+                            <th>Is Working</th>
+                            <th>View</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model.ObjStudentResultlst)
+                            {
+                                <tr padding="10">
+                                    <td padding="0">@item.StuFirstName</td>
+                                    <td padding="0">@item.StuEmailId</td>
+                                    <td padding="0">@item.StuPhoneNo</td>
+                                    <td padding="0">@item.StuRegistrationDate</td>
+                                    <td padding="0">@item.StuAdharNo</td>
+                                    <td padding="0">@(item.IsPlacementRequired == true ? "Yes" : "No")</td>
+                                    <td padding="0">@(item.IsWorking == true ? "Yes" : "No")</td>
+
+                                    <td>
+                                        <a asp-page="/Students/StudentsInfo" asp-route-StudentId="@item.StudentId"
+                                           class="btn btn-primary m-1 table-anchor table-anchor-line-height">View</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <div>
+                    <ul class="pagination justify-content-center">
+                        @for (var i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li style="background-color:#ffbb99" class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                <a asp-page="/Students/StudentsSearchPage" asp-route-CurrentPage="@i" asp-route-Course="@(Model.ObjStudentSearch.StuCourse)" class="page-link">@i</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        @*<button Id="printMe" class="btn btn-primary">Print me</button>*@
+    </div>
+</form>
+

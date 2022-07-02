@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<!-- saved from url=(0085)https://www.mikesdotnetting.com/article/328/simple-paging-in-asp-net-core-razor-pages -->
+<html class="fontawesome-i2svg-active fontawesome-i2svg-complete"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Paging In ASP.NET Core Razor Pages</title>
+    <style type="text/css">svg:not(:root).svg-inline--fa{overflow:visible}.svg-inline--fa{display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em}.svg-inline--fa.fa-lg{vertical-align:-.225em}.svg-inline--fa.fa-w-1{width:.0625em}.svg-inline--fa.fa-w-2{width:.125em}.svg-inline--fa.fa-w-3{width:.1875em}.svg-inline--fa.fa-w-4{width:.25em}.svg-inline--fa.fa-w-5{width:.3125em}.svg-inline--fa.fa-w-6{width:.375em}.svg-inline--fa.fa-w-7{width:.4375em}.svg-inline--fa.fa-w-8{width:.5em}.svg-inline--fa.fa-w-9{width:.5625em}.svg-inline--fa.fa-w-10{width:.625em}.svg-inline--fa.fa-w-11{width:.6875em}.svg-inline--fa.fa-w-12{width:.75em}.svg-inline--fa.fa-w-13{width:.8125em}.svg-inline--fa.fa-w-14{width:.875em}.svg-inline--fa.fa-w-15{width:.9375em}.svg-inline--fa.fa-w-16{width:1em}.svg-inline--fa.fa-w-17{width:1.0625em}.svg-inline--fa.fa-w-18{width:1.125em}.svg-inline--fa.fa-w-19{width:1.1875em}.svg-inline--fa.fa-w-20{width:1.25em}.svg-inline--fa.fa-pull-left{margin-right:.3em;width:auto}.svg-inline--fa.fa-pull-right{margin-left:.3em;width:auto}.svg-inline--fa.fa-border{height:1.5em}.svg-inline--fa.fa-li{width:2em}.svg-inline--fa.fa-fw{width:1.25em}.fa-layers svg.svg-inline--fa{bottom:0;left:0;margin:auto;position:absolute;right:0;top:0}.fa-layers{display:inline-block;height:1em;position:relative;text-align:center;vertical-align:-.125em;width:1em}.fa-layers svg.svg-inline--fa{-webkit-transform-origin:center center;transform-origin:center center}.fa-layers-counter,.fa-layers-text{display:inline-block;position:absolute;text-align:center}.fa-layers-text{left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);-webkit-transform-origin:center center;transform-origin:center center}.fa-layers-counter{background-color:#ff253a;border-radius:1em;-webkit-box-sizing:border-box;box-sizing:border-box;color:#fff;height:1.5em;line-height:1;max-width:5em;min-width:1.5em;overflow:hidden;padding:.25em;right:0;text-overflow:ellipsis;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top right;transform-origin:top right}.fa-layers-bottom-right{bottom:0;right:0;top:auto;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:bottom right;transform-origin:bottom right}.fa-layers-bottom-left{bottom:0;left:0;right:auto;top:auto;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:bottom left;transform-origin:bottom left}.fa-layers-top-right{right:0;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top right;transform-origin:top right}.fa-layers-top-left{left:0;right:auto;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top left;transform-origin:top left}.fa-lg{font-size:1.33333em;line-height:.75em;vertical-align:-.0667em}.fa-xs{font-size:.75em}.fa-sm{font-size:.875em}.fa-1x{font-size:1em}.fa-2x{font-size:2em}.fa-3x{font-size:3em}.fa-4x{font-size:4em}.fa-5x{font-size:5em}.fa-6x{font-size:6em}.fa-7x{font-size:7em}.fa-8x{font-size:8em}.fa-9x{font-size:9em}.fa-10x{font-size:10em}.fa-fw{text-align:center;width:1.25em}.fa-ul{list-style-type:none;margin-left:2.5em;padding-left:0}.fa-ul>li{position:relative}.fa-li{left:-2em;position:absolute;text-align:center;width:2em;line-height:inherit}.fa-border{border:solid .08em #eee;border-radius:.1em;padding:.2em .25em .15em}.fa-pull-left{float:left}.fa-pull-right{float:right}.fa.fa-pull-left,.fab.fa-pull-left,.fal.fa-pull-left,.far.fa-pull-left,.fas.fa-pull-left{margin-right:.3em}.fa.fa-pull-right,.fab.fa-pull-right,.fal.fa-pull-right,.far.fa-pull-right,.fas.fa-pull-right{margin-left:.3em}.fa-spin{-webkit-animation:fa-spin 2s infinite linear;animation:fa-spin 2s infinite linear}.fa-pulse{-webkit-animation:fa-spin 1s infinite steps(8);animation:fa-spin 1s infinite steps(8)}@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes fa-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.fa-rotate-90{-webkit-transform:rotate(90deg);transform:rotate(90deg)}.fa-rotate-180{-webkit-transform:rotate(180deg);transform:rotate(180deg)}.fa-rotate-270{-webkit-transform:rotate(270deg);transform:rotate(270deg)}.fa-flip-horizontal{-webkit-transform:scale(-1,1);transform:scale(-1,1)}.fa-flip-vertical{-webkit-transform:scale(1,-1);transform:scale(1,-1)}.fa-flip-horizontal.fa-flip-vertical{-webkit-transform:scale(-1,-1);transform:scale(-1,-1)}:root .fa-flip-horizontal,:root .fa-flip-vertical,:root .fa-rotate-180,:root .fa-rotate-270,:root .fa-rotate-90{-webkit-filter:none;filter:none}.fa-stack{display:inline-block;height:2em;position:relative;width:2em}.fa-stack-1x,.fa-stack-2x{bottom:0;left:0;margin:auto;position:absolute;right:0;top:0}.svg-inline--fa.fa-stack-1x{height:1em;width:1em}.svg-inline--fa.fa-stack-2x{height:2em;width:2em}.fa-inverse{color:#fff}.sr-only{border:0;clip:rect(0,0,0,0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.sr-only-focusable:active,.sr-only-focusable:focus{clip:auto;height:auto;margin:0;overflow:visible;position:static;width:auto}</style><link rel="canonical" href="https://www.mikesdotnetting.com/article/328/simple-paging-in-asp-net-core-razor-pages">
+    <link rel="alternate" type="application/atom+xml" title="Mike Brind, Web Development and ASP.NET Feed" href="https://www.mikesdotnetting.com/feed">
+
+
+    <link rel="stylesheet" href="./Simple Paging In ASP.NET Core Razor Pages_files/bootstrap.min.css" crossorigin="anonymous" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=">
+<meta name="x-stylesheet-fallback-test" content="" class="sr-only"><script src="./Simple Paging In ASP.NET Core Razor Pages_files/f(7).txt"></script><script type="text/javascript" async="" src="./Simple Paging In ASP.NET Core Razor Pages_files/analytics.js.download"></script><script src="./Simple Paging In ASP.NET Core Razor Pages_files/osd.js.download"></script><script src="./Simple Paging In ASP.NET Core Razor Pages_files/f(8).txt"></script><script src="./Simple Paging In ASP.NET Core Razor Pages_files/f(9).txt" id="google_shimpl"></script><script type="text/javascript">!function(a,b,c,d){var e,f=document,g=f.getElementsByTagName("SCRIPT"),h=g[g.length-1].previousElementSibling,i=f.defaultView&&f.defaultView.getComputedStyle?f.defaultView.getComputedStyle(h):h.currentStyle;if(i&&i[a]!==b)for(e=0;e<c.length;e++)f.write('<link href="'+c[e]+'" '+d+"/>")}("position","absolute",["\/lib\/bootstrap\/dist\/css\/bootstrap.min.css"], "rel=\u0022stylesheet\u0022 crossorigin=\u0022anonymous\u0022 integrity=\u0022sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=\u0022 ");</script>
+
+    <link href="./Simple Paging In ASP.NET Core Razor Pages_files/css(1)" rel="stylesheet" type="text/css">
+    <link href="./Simple Paging In ASP.NET Core Razor Pages_files/css(2)" rel="stylesheet">
+    <link href="./Simple Paging In ASP.NET Core Razor Pages_files/icon" rel="stylesheet">
+    <script defer="" src="./Simple Paging In ASP.NET Core Razor Pages_files/all.js.download" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="./Simple Paging In ASP.NET Core Razor Pages_files/site.css">
+<link rel="preload" href="./Simple Paging In ASP.NET Core Razor Pages_files/f(10).txt" as="script"><script type="text/javascript" src="./Simple Paging In ASP.NET Core Razor Pages_files/f(10).txt"></script><link rel="preload" href="./Simple Paging In ASP.NET Core Razor Pages_files/f(11).txt" as="script"><script type="text/javascript" src="./Simple Paging In ASP.NET Core Razor Pages_files/f(11).txt"></script></head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm  border-bottom box-shadow mb-3">
+            <div class="container">
+                <div id="social">
+                    <ul>
+                        <li>
+                            <a href="https://twitter.com/mikesdotnetting" title="Follow me on Twitter"><svg class="svg-inline--fa fa-twitter fa-w-16" aria-hidden="true" data-prefix="fab" data-icon="twitter" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg><!-- <i class="fab fa-twitter"></i> --></a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/mike-brind/" title="Connect with me on LinkedIn"><svg class="svg-inline--fa fa-linkedin-in fa-w-14" aria-hidden="true" data-prefix="fab" data-icon="linkedin-in" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M100.3 480H7.4V180.9h92.9V480zM53.8 140.1C24.1 140.1 0 115.5 0 85.8 0 56.1 24.1 32 53.8 32c29.7 0 53.8 24.1 53.8 53.8 0 29.7-24.1 54.3-53.8 54.3zM448 480h-92.7V334.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V480h-92.8V180.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V480z"></path></svg><!-- <i class="fab fa-linkedin-in"></i> --></a>
+                        </li>
+                        <li>
+                            <a href="https://stackexchange.com/users/45667/mike-brind" title="Check my StackExchange profile"><svg class="svg-inline--fa fa-stack-exchange fa-w-14" aria-hidden="true" data-prefix="fab" data-icon="stack-exchange" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M17.7 332.3h412.7v22c0 37.7-29.3 68-65.3 68h-19L259.3 512v-89.7H83c-36 0-65.3-30.3-65.3-68v-22zm0-23.6h412.7v-85H17.7v85zm0-109.4h412.7v-85H17.7v85zM365 0H83C47 0 17.7 30.3 17.7 67.7V90h412.7V67.7C430.3 30.3 401 0 365 0z"></path></svg><!-- <i class="fab fa-stack-exchange"></i> --></a>
+                        </li>
+                        <li>
+                            <a href="https://www.mikesdotnetting.com/feed" title="Subscribe to my feed"><svg class="svg-inline--fa fa-rss fa-w-14" aria-hidden="true" data-prefix="fas" data-icon="rss" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"></path></svg><!-- <i class="fas fa-rss"></i> --></a>
+                        </li>
+                    </ul>
+                </div>
+                <a class="navbar-brand" href="https://www.mikesdotnetting.com/">Mikesdotnetting</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <br>
+                <span class="byline">
+                    A collection of articles and tutorials on web development with ASP.NET by Mike Brind
+                </span>
+                
+            </div>
+        </nav>
+    </header>
+    <div class="container" style="height: auto !important;">
+        <main role="main" class="row" style="height: auto !important;">
+            <div class="col main-content" style="height: auto !important; min-height: 0px !important;">
+                
+<article itemscope="" itemtype="http://schema.org/TechArticle" style="height: auto !important;">
+    <h1 class="article-headline" itemprop="headline">
+        Simple Paging In ASP.NET Core Razor Pages
+    </h1>
+    <div id="article-metadata">
+
+        <time itemprop="datePublished">
+            03 October 2018 07:49
+        </time>
+
+
+    </div>
+    <div id="categories">
+            <span class="label"><a href="https://www.mikesdotnetting.com/category/36/asp-net-core">ASP.NET Core</a></span>
+            <span class="label"><a href="https://www.mikesdotnetting.com/category/37/razor-pages">Razor Pages</a></span>
+    </div>
+    <div style="height: auto !important;">
+        <p class="abstract" itemprop="description">
+            This article attempts to demonstrate how to implement simple paging functionality in a  Razor Pages application. I will explain the basics behind paging, and then use BootStrap 4 to render a variety of paging links, 
+without resorting to Nuget packages for link generation.
+        </p>
+
+        <div class="banner">
+            
+                <script async="" src="./Simple Paging In ASP.NET Core Razor Pages_files/f(12).txt" type="text/javascript"></script>
+                <!-- Alternating Top Leaderboard -->
+                <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-8046723421340367" data-ad-slot="9326110132" data-adsbygoogle-status="done" data-overlap-observer-io="false"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><iframe id="aswift_0" name="aswift_0" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="728" height="90" frameborder="0" src="./Simple Paging In ASP.NET Core Razor Pages_files/ads.html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!1" data-google-query-id="COSaivm0xugCFZqJlgodE5sB0w" data-load-complete="true"></iframe></ins></ins></ins>
+                <script type="text/javascript">
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            
+        </div>
+
+        <section style="clear: both; height: auto !important;" itemprop="articleBody">
+            <p>Three pieces of information are needed to implement paging:</p>
+<ol>
+<li>The current page number</li>
+<li>The total number of records to be displayed</li>
+<li>The number of records to display on each page (the page size)</li>
+</ol>
+<p>Taking the simple approach, I add properties to the PageModel for each of 
+these pieces of information:</p>
+<script src="./Simple Paging In ASP.NET Core Razor Pages_files/070038cd23359a0392e425f63ef67996.js.download" type="text/javascript"></script><link rel="stylesheet" href="./Simple Paging In ASP.NET Core Razor Pages_files/gist-embed-31007ea0d3bd9f80540adfbc55afc7bd.css"><div id="gist92238436" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-pagination-cshtml-cs" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-c ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-pagination-cshtml-cs-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-pagination-cshtml-cs-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">PaginationModel</span> : <span class="pl-en">PageModel</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-pagination-cshtml-cs-LC2" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-pagination-cshtml-cs-LC3" class="blob-code blob-code-inner js-file-line">    [<span class="pl-en">BindProperty</span>(<span class="pl-en">SupportsGet</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>)]</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-pagination-cshtml-cs-LC4" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">CurrentPage</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; } <span class="pl-k">=</span> <span class="pl-c1">1</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-pagination-cshtml-cs-LC5" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">Count</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-pagination-cshtml-cs-LC6" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">PageSize</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; } <span class="pl-k">=</span> <span class="pl-c1">10</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-pagination-cshtml-cs-LC7" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/mikebrind/070038cd23359a0392e425f63ef67996/raw/89c98ac4571d51eff718a0530d9778d510830c6a/Pagination.cshtml.cs" style="float:right">view raw</a>
+        <a href="https://gist.github.com/mikebrind/070038cd23359a0392e425f63ef67996#file-pagination-cshtml-cs">Pagination.cshtml.cs</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+<p>The <code>CurrentPage</code> has a default value of 1, and the number of records per page (<code>PageSize</code>) is set at 10 by default. 
+The <code>CurrentPage</code> has the <code>BindProperty</code> attribute applied 
+so that it can automatically be bound from values passed as part of the request. 
+It also has the <code>SupportsGet </code>property set to <code>true</code> 
+specifically so that the query string or route data can be used to pass the 
+value from request to request.</p>
+<p>I also need to calculate the number of pages. I can do this by adding another property on the PageModel that performs the calculation:</p>
+<script src="./Simple Paging In ASP.NET Core Razor Pages_files/7f53ad1d9bd1570c67bca3553b6d21c1.js.download" type="text/javascript"></script><link rel="stylesheet" href="./Simple Paging In ASP.NET Core Razor Pages_files/gist-embed-31007ea0d3bd9f80540adfbc55afc7bd.css"><div id="gist92238960" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-pagination-cshtml-cs" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-c ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-pagination-cshtml-cs-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-pagination-cshtml-cs-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">PaginationModel</span> : <span class="pl-en">PageModel</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-pagination-cshtml-cs-LC2" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-pagination-cshtml-cs-LC3" class="blob-code blob-code-inner js-file-line">    [<span class="pl-en">BindProperty</span>(<span class="pl-en">SupportsGet</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>)]</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-pagination-cshtml-cs-LC4" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">CurrentPage</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; } <span class="pl-k">=</span> <span class="pl-c1">1</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-pagination-cshtml-cs-LC5" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">Count</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-pagination-cshtml-cs-LC6" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">PageSize</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; } <span class="pl-k">=</span> <span class="pl-c1">10</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-pagination-cshtml-cs-LC7" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-pagination-cshtml-cs-LC8" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">TotalPages</span> <span class="pl-k">=&gt;</span> (<span class="pl-k">int</span>)<span class="pl-smi">Math</span>.<span class="pl-en">Ceiling</span>(<span class="pl-smi">decimal</span>.<span class="pl-en">Divide</span>(<span class="pl-smi">Count</span>, <span class="pl-smi">PageSize</span>));</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-pagination-cshtml-cs-LC9" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/mikebrind/7f53ad1d9bd1570c67bca3553b6d21c1/raw/124b80cbf5a0716eefab06b281607210fdda07d7/Pagination.cshtml.cs" style="float:right">view raw</a>
+        <a href="https://gist.github.com/mikebrind/7f53ad1d9bd1570c67bca3553b6d21c1#file-pagination-cshtml-cs">Pagination.cshtml.cs</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+<p>Now all I need is some data. Usually this comes from a database, but I am using some 
+dummy data formatted as JSON that's read from a file. My JSON will deserialise to 
+a collection of <code>Person</code> objects:</p>
+<script src="./Simple Paging In ASP.NET Core Razor Pages_files/cb0057adcc2d6dfaf869d9b8678c4474.js.download" type="text/javascript"></script><link rel="stylesheet" href="./Simple Paging In ASP.NET Core Razor Pages_files/gist-embed-31007ea0d3bd9f80540adfbc55afc7bd.css"><div id="gist92240019" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-person-cs" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-c ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-person-cs-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-person-cs-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Person</span></td>
+      </tr>
+      <tr>
+        <td id="file-person-cs-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-person-cs-LC2" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-person-cs-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-person-cs-LC3" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">Id</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }</td>
+      </tr>
+      <tr>
+        <td id="file-person-cs-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-person-cs-LC4" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">FullName</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }</td>
+      </tr>
+      <tr>
+        <td id="file-person-cs-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-person-cs-LC5" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-en">DateTime</span> <span class="pl-smi">CreatedAt</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }</td>
+      </tr>
+      <tr>
+        <td id="file-person-cs-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-person-cs-LC6" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">string</span>  <span class="pl-smi">Country</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }</td>
+      </tr>
+      <tr>
+        <td id="file-person-cs-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-person-cs-LC7" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">Email</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/mikebrind/cb0057adcc2d6dfaf869d9b8678c4474/raw/ffe87da4595b1bf87842f2451031a310aeaccda0/Person.cs" style="float:right">view raw</a>
+        <a href="https://gist.github.com/mikebrind/cb0057adcc2d6dfaf869d9b8678c4474#file-person-cs">Person.cs</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+<p>So I also add a property to the PageModel for that:</p>
+<script src="./Simple Paging In ASP.NET Core Razor Pages_files/ccc8af3497a10f70e41acec21ee3287f.js.download" type="text/javascript"></script><link rel="stylesheet" href="./Simple Paging In ASP.NET Core Razor Pages_files/gist-embed-31007ea0d3bd9f80540adfbc55afc7bd.css"><div id="gist92240408" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-pagination-cshtml-cs" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-c ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-pagination-cshtml-cs-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-pagination-cshtml-cs-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">PaginationModel</span> : <span class="pl-en">PageModel</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-pagination-cshtml-cs-LC2" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-pagination-cshtml-cs-LC3" class="blob-code blob-code-inner js-file-line">    [<span class="pl-en">BindProperty</span>(<span class="pl-en">SupportsGet</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>)]</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-pagination-cshtml-cs-LC4" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">CurrentPage</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; } <span class="pl-k">=</span> <span class="pl-c1">1</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-pagination-cshtml-cs-LC5" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">Count</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-pagination-cshtml-cs-LC6" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">PageSize</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; } <span class="pl-k">=</span> <span class="pl-c1">10</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-pagination-cshtml-cs-LC7" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-pagination-cshtml-cs-LC8" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">TotalPages</span> <span class="pl-k">=&gt;</span> (<span class="pl-k">int</span>)<span class="pl-smi">Math</span>.<span class="pl-en">Ceiling</span>(<span class="pl-smi">decimal</span>.<span class="pl-en">Divide</span>(<span class="pl-smi">Count</span>, <span class="pl-smi">PageSize</span>));</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-pagination-cshtml-cs-LC9" class="blob-code blob-code-inner js-file-line">    </td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-pagination-cshtml-cs-LC10" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-en">List</span>&lt;<span class="pl-en">Person</span>&gt; <span class="pl-smi">Data</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-pagination-cshtml-cs-LC11" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/mikebrind/ccc8af3497a10f70e41acec21ee3287f/raw/ebb16fba5424986fd3555252cbc319c6735dd037/Pagination.cshtml.cs" style="float:right">view raw</a>
+        <a href="https://gist.github.com/mikebrind/ccc8af3497a10f70e41acec21ee3287f#file-pagination-cshtml-cs">Pagination.cshtml.cs</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+<p>Here is my <code>PersonService</code> class in full along with its interface:</p>
+<script src="./Simple Paging In ASP.NET Core Razor Pages_files/d2ca02ad688fe85621b4e9cfe82aff8d.js.download" type="text/javascript"></script><link rel="stylesheet" href="./Simple Paging In ASP.NET Core Razor Pages_files/gist-embed-31007ea0d3bd9f80540adfbc55afc7bd.css"><div id="gist92240627" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-personservice-cs" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-c ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-personservice-cs-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-personservice-cs-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-en">IPersonService</span></td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-personservice-cs-LC2" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-personservice-cs-LC3" class="blob-code blob-code-inner js-file-line">    <span class="pl-en">Task</span>&lt;<span class="pl-en">List</span>&lt;<span class="pl-en">Person</span>&gt;&gt; <span class="pl-en">GetPaginatedResult</span>(<span class="pl-k">int</span> <span class="pl-smi">currentPage</span>, <span class="pl-k">int</span> <span class="pl-smi">pageSize</span> <span class="pl-k">=</span> <span class="pl-c1">10</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-personservice-cs-LC4" class="blob-code blob-code-inner js-file-line">    <span class="pl-en">Task</span>&lt;<span class="pl-k">int</span>&gt; <span class="pl-en">GetCount</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-personservice-cs-LC5" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-personservice-cs-LC6" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-personservice-cs-LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">PersonService</span> : <span class="pl-en">IPersonService</span></td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-personservice-cs-LC8" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-personservice-cs-LC9" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">private</span> <span class="pl-k">readonly</span> <span class="pl-en">IHostingEnvironment</span> <span class="pl-smi">_hostingEnvironment</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-personservice-cs-LC10" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-en">PersonService</span>(<span class="pl-en">IHostingEnvironment</span> <span class="pl-smi">hostingEnvironment</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-personservice-cs-LC11" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-personservice-cs-LC12" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">_hostingEnvironment</span> <span class="pl-k">=</span> <span class="pl-smi">hostingEnvironment</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-personservice-cs-LC13" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-personservice-cs-LC14" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-personservice-cs-LC15" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-en">Task</span>&lt;<span class="pl-en">List</span>&lt;<span class="pl-en">Person</span>&gt;&gt; <span class="pl-en">GetPaginatedResult</span>(<span class="pl-k">int</span> <span class="pl-smi">currentPage</span>, <span class="pl-k">int</span> <span class="pl-smi">pageSize</span> <span class="pl-k">=</span> <span class="pl-c1">10</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-personservice-cs-LC16" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-personservice-cs-LC17" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">var</span> <span class="pl-smi">data</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-en">GetData</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-personservice-cs-LC18" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">return</span> <span class="pl-smi">data</span>.<span class="pl-en">OrderBy</span>(<span class="pl-smi">d</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">d</span>.<span class="pl-smi">Id</span>).<span class="pl-en">Skip</span>((<span class="pl-smi">currentPage</span> <span class="pl-k">-</span> <span class="pl-c1">1</span>) <span class="pl-k">*</span> <span class="pl-smi">pageSize</span>).<span class="pl-en">Take</span>(<span class="pl-smi">pageSize</span>).<span class="pl-en">ToList</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-personservice-cs-LC19" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-personservice-cs-LC20" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-personservice-cs-LC21" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-en">Task</span>&lt;<span class="pl-k">int</span>&gt; <span class="pl-en">GetCount</span>()</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="file-personservice-cs-LC22" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="file-personservice-cs-LC23" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">var</span> <span class="pl-smi">data</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-en">GetData</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L24" class="blob-num js-line-number" data-line-number="24"></td>
+        <td id="file-personservice-cs-LC24" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">return</span> <span class="pl-smi">data</span>.<span class="pl-smi">Count</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L25" class="blob-num js-line-number" data-line-number="25"></td>
+        <td id="file-personservice-cs-LC25" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L26" class="blob-num js-line-number" data-line-number="26"></td>
+        <td id="file-personservice-cs-LC26" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L27" class="blob-num js-line-number" data-line-number="27"></td>
+        <td id="file-personservice-cs-LC27" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">private</span> <span class="pl-k">async</span> <span class="pl-en">Task</span>&lt;<span class="pl-en">List</span>&lt;<span class="pl-en">Person</span>&gt;&gt; <span class="pl-en">GetData</span>()</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L28" class="blob-num js-line-number" data-line-number="28"></td>
+        <td id="file-personservice-cs-LC28" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L29" class="blob-num js-line-number" data-line-number="29"></td>
+        <td id="file-personservice-cs-LC29" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">var</span> <span class="pl-smi">json</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">File</span>.<span class="pl-en">ReadAllTextAsync</span>(<span class="pl-smi">Path</span>.<span class="pl-en">Combine</span>(<span class="pl-smi">_hostingEnvironment</span>.<span class="pl-smi">ContentRootPath</span>, <span class="pl-s"><span class="pl-pds">"</span>Data<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>paging.json<span class="pl-pds">"</span></span>));</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L30" class="blob-num js-line-number" data-line-number="30"></td>
+        <td id="file-personservice-cs-LC30" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">return</span> <span class="pl-smi">JsonConvert</span>.<span class="pl-en">DeserializeObject</span>&lt;<span class="pl-en">List</span>&lt;<span class="pl-en">Person</span>&gt;&gt;(<span class="pl-smi">json</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L31" class="blob-num js-line-number" data-line-number="31"></td>
+        <td id="file-personservice-cs-LC31" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-personservice-cs-L32" class="blob-num js-line-number" data-line-number="32"></td>
+        <td id="file-personservice-cs-LC32" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/mikebrind/d2ca02ad688fe85621b4e9cfe82aff8d/raw/5e8cc2ec8654d4e7daa84a1d8e65e15c5487a0f5/PersonService.cs" style="float:right">view raw</a>
+        <a href="https://gist.github.com/mikebrind/d2ca02ad688fe85621b4e9cfe82aff8d#file-personservice-cs">PersonService.cs</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+<p>This class is where I get my data from. It is analogous to a repository if you 
+prefer that approach. It has two methods of interest: <code>GetCount</code>, 
+which returns the total number of items to be displayed; and <code>
+GetPaginatedResult</code>, which returns the data for the current page. The
+<code>GetPaginatedResult</code> method uses the LINQ <code>Skip</code> and <code>
+Take</code> operators. <code>Skip</code> bypasses the specified number of items 
+in the collection. If the <code>CurrentPage</code> is 1, <code>Skip</code> will 
+bypass zero elements (<code>(1-1) * 10</code>). Then the <code>Take</code> 
+method retrieves the specified number of elements from that point in the 
+sequence. It will retrieve up to the number of elements represented by the <code>
+pageSize</code> parameter. Importantly, the order of the results is specified to 
+ensure that the contents of each page of results are consecutive.</p>
+<p>If you are using Entity Framework for your data access, the <code>Skip</code> 
+and <code>Take</code> operators translate to using whichever paging function is 
+supported by your database provider - the RowNumber function with a CTE, Offset and 
+Fetch, Limit and Offset etc.</p><div class="google-auto-placed ap_container" style="width: 100%; height: auto; clear: none; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-8046723421340367" data-adsbygoogle-status="done" style="display: block; margin: auto; background-color: transparent; height: 280px;" data-overlap-observer-io="false"><ins id="aswift_5_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:810px;background-color:transparent;"><ins id="aswift_5_anchor" style="display: block; border: none; height: 280px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 810px; background-color: transparent; overflow: visible;"><iframe id="aswift_5" name="aswift_5" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="810" height="280" frameborder="0" src="./Simple Paging In ASP.NET Core Razor Pages_files/ads(1).html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!5" data-google-query-id="CLaw9_q0xugCFUnRlgod9fwAPA" data-load-complete="true"></iframe></ins></ins></ins></div>
+<p>I register this service with the dependency injection system, and inject it 
+into the PageModel where it is used in the <code>OnGetAsync</code> method to populate the
+<code>Data</code> and <code>Count</code> properties:</p>
+<script src="./Simple Paging In ASP.NET Core Razor Pages_files/573282fdd9a0fbf0b543a83d4b32e4a6.js.download" type="text/javascript"></script><link rel="stylesheet" href="./Simple Paging In ASP.NET Core Razor Pages_files/gist-embed-31007ea0d3bd9f80540adfbc55afc7bd.css"><div id="gist92241533" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-pagination-cshtml-cs" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-c ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-pagination-cshtml-cs-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-pagination-cshtml-cs-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">PaginationModel</span> : <span class="pl-en">PageModel</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-pagination-cshtml-cs-LC2" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-pagination-cshtml-cs-LC3" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">private</span> <span class="pl-k">readonly</span> <span class="pl-en">IPersonService</span> <span class="pl-smi">_personService</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-pagination-cshtml-cs-LC4" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-pagination-cshtml-cs-LC5" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-en">PaginationModel</span>(<span class="pl-en">IPersonService</span> <span class="pl-smi">personService</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-pagination-cshtml-cs-LC6" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-pagination-cshtml-cs-LC7" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">_personService</span> <span class="pl-k">=</span> <span class="pl-smi">personService</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-pagination-cshtml-cs-LC8" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-pagination-cshtml-cs-LC9" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-pagination-cshtml-cs-LC10" class="blob-code blob-code-inner js-file-line">    [<span class="pl-en">BindProperty</span>(<span class="pl-en">SupportsGet</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>)]</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-pagination-cshtml-cs-LC11" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">CurrentPage</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; } <span class="pl-k">=</span> <span class="pl-c1">1</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-pagination-cshtml-cs-LC12" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">Count</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-pagination-cshtml-cs-LC13" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">PageSize</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; } <span class="pl-k">=</span> <span class="pl-c1">10</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-pagination-cshtml-cs-LC14" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-pagination-cshtml-cs-LC15" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">TotalPages</span> <span class="pl-k">=&gt;</span> (<span class="pl-k">int</span>)<span class="pl-smi">Math</span>.<span class="pl-en">Ceiling</span>(<span class="pl-smi">decimal</span>.<span class="pl-en">Divide</span>(<span class="pl-smi">Count</span>, <span class="pl-smi">PageSize</span>));</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-pagination-cshtml-cs-LC16" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-pagination-cshtml-cs-LC17" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-en">List</span>&lt;<span class="pl-k">Models</span>.<span class="pl-en">Person</span>&gt; <span class="pl-smi">Data</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-pagination-cshtml-cs-LC18" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-pagination-cshtml-cs-LC19" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-en">Task</span> <span class="pl-en">OnGetAsync</span>()</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-pagination-cshtml-cs-LC20" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-pagination-cshtml-cs-LC21" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">Data</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">_personService</span>.<span class="pl-en">GetPaginatedResult</span>(<span class="pl-smi">CurrentPage</span>, <span class="pl-smi">PageSize</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="file-pagination-cshtml-cs-LC22" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">Count</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">_personService</span>.<span class="pl-en">GetCount</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="file-pagination-cshtml-cs-LC23" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L24" class="blob-num js-line-number" data-line-number="24"></td>
+        <td id="file-pagination-cshtml-cs-LC24" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/mikebrind/573282fdd9a0fbf0b543a83d4b32e4a6/raw/7fba58cbc29fef6f1c34b89cbc71c5bf7dffb421/Pagination.cshtml.cs" style="float:right">view raw</a>
+        <a href="https://gist.github.com/mikebrind/573282fdd9a0fbf0b543a83d4b32e4a6#file-pagination-cshtml-cs">Pagination.cshtml.cs</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+<p>So here is the code for the content page:</p>
+<script src="./Simple Paging In ASP.NET Core Razor Pages_files/6229c242af993d62ce342b5f73d5cf84.js.download" type="text/javascript"></script><link rel="stylesheet" href="./Simple Paging In ASP.NET Core Razor Pages_files/gist-embed-31007ea0d3bd9f80540adfbc55afc7bd.css"><div id="gist92241642" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-pagination-cshtml" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-html-razor ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-pagination-cshtml-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-pagination-cshtml-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">@page </span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-pagination-cshtml-LC2" class="blob-code blob-code-inner js-file-line"><span class="pl-k">@model </span><span class="pl-k">PaginationModel</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-pagination-cshtml-LC3" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-pagination-cshtml-LC4" class="blob-code blob-code-inner js-file-line">&lt;<span class="pl-ent">h2</span>&gt;Pagination Example&lt;/<span class="pl-ent">h2</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-pagination-cshtml-LC5" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-pagination-cshtml-LC6" class="blob-code blob-code-inner js-file-line">&lt;<span class="pl-ent">table</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>table table-striped<span class="pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-pagination-cshtml-LC7" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">@foreach (</span><span class="pl-smi">var</span> <span class="pl-smi">item</span> <span class="pl-smi">in</span> <span class="pl-smi">Model</span>.<span class="pl-smi">Data</span><span class="pl-k">)</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-pagination-cshtml-LC8" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">{</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-pagination-cshtml-LC9" class="blob-code blob-code-inner js-file-line">        &lt;<span class="pl-ent">tr</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-pagination-cshtml-LC10" class="blob-code blob-code-inner js-file-line">            &lt;<span class="pl-ent">td</span>&gt;<span class="pl-k">@item.Id</span>&lt;/<span class="pl-ent">td</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-pagination-cshtml-LC11" class="blob-code blob-code-inner js-file-line">            &lt;<span class="pl-ent">td</span>&gt;<span class="pl-k">@item.FullName</span>&lt;/<span class="pl-ent">td</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-pagination-cshtml-LC12" class="blob-code blob-code-inner js-file-line">            &lt;<span class="pl-ent">td</span>&gt;<span class="pl-k">@item.Country</span>&lt;/<span class="pl-ent">td</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-pagination-cshtml-LC13" class="blob-code blob-code-inner js-file-line">            &lt;<span class="pl-ent">td</span>&gt;<span class="pl-k">@item.Email</span>&lt;/<span class="pl-ent">td</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-pagination-cshtml-LC14" class="blob-code blob-code-inner js-file-line">            &lt;<span class="pl-ent">td</span>&gt;<span class="pl-k">@item.CreatedAt</span>&lt;/<span class="pl-ent">td</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-pagination-cshtml-LC15" class="blob-code blob-code-inner js-file-line">        &lt;/<span class="pl-ent">tr</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-pagination-cshtml-LC16" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">}</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-pagination-cshtml-LC17" class="blob-code blob-code-inner js-file-line">&lt;/<span class="pl-ent">table</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-pagination-cshtml-LC18" class="blob-code blob-code-inner js-file-line">&lt;<span class="pl-ent">div</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-pagination-cshtml-LC19" class="blob-code blob-code-inner js-file-line">    &lt;<span class="pl-ent">ul</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>pagination<span class="pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-pagination-cshtml-LC20" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">@for (</span><span class="pl-k">var</span> <span class="pl-smi">i</span> <span class="pl-k">=</span> <span class="pl-c1">1</span>; <span class="pl-smi">i</span> <span class="pl-k">&lt;=</span> <span class="pl-smi">Model</span>.<span class="pl-smi">TotalPages</span>; <span class="pl-smi">i</span><span class="pl-k">++</span><span class="pl-k">)</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-pagination-cshtml-LC21" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">{</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="file-pagination-cshtml-LC22" class="blob-code blob-code-inner js-file-line">            &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>page-item @(i == Model.CurrentPage ? <span class="pl-pds">"</span></span><span class="pl-e">active</span><span class="pl-s"><span class="pl-pds">"</span> : <span class="pl-pds">"</span><span class="pl-pds">"</span>)<span class="pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="file-pagination-cshtml-LC23" class="blob-code blob-code-inner js-file-line">                &lt;<span class="pl-ent">a</span> <span class="pl-e">asp-page</span>=<span class="pl-s"><span class="pl-pds">"</span>/pagination<span class="pl-pds">"</span></span> <span class="pl-e">asp-route-currentpage</span>=<span class="pl-s"><span class="pl-pds">"</span>@i<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>page-link<span class="pl-pds">"</span></span>&gt;<span class="pl-k">@i</span>&lt;/<span class="pl-ent">a</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L24" class="blob-num js-line-number" data-line-number="24"></td>
+        <td id="file-pagination-cshtml-LC24" class="blob-code blob-code-inner js-file-line">            &lt;/<span class="pl-ent">li</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L25" class="blob-num js-line-number" data-line-number="25"></td>
+        <td id="file-pagination-cshtml-LC25" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">}</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L26" class="blob-num js-line-number" data-line-number="26"></td>
+        <td id="file-pagination-cshtml-LC26" class="blob-code blob-code-inner js-file-line">    &lt;/<span class="pl-ent">ul</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L27" class="blob-num js-line-number" data-line-number="27"></td>
+        <td id="file-pagination-cshtml-LC27" class="blob-code blob-code-inner js-file-line">&lt;/<span class="pl-ent">div</span>&gt;</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/mikebrind/6229c242af993d62ce342b5f73d5cf84/raw/5f9a74dd7afbe6e00c8c6015828e5ff03f1b3593/Pagination.cshtml" style="float:right">view raw</a>
+        <a href="https://gist.github.com/mikebrind/6229c242af993d62ce342b5f73d5cf84#file-pagination-cshtml">Pagination.cshtml</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+<p>When the page is run, the default values are used and the first 10 records are displayed, along with 
+paging links for every page of records in the result:</p>
+<p><img src="./Simple Paging In ASP.NET Core Razor Pages_files/02-10-2018-16-26-17.png" alt="Pagination in Razor Pages"></p>
+<p>As you hover over the paging links, you can see that the URLs generated by 
+the anchor tag helper include a query string value for <code>currentpage</code>, which is the 
+route value specified by the <code>asp-route</code> attribute:</p>
+<p><img src="./Simple Paging In ASP.NET Core Razor Pages_files/02-10-2018-16-42-09.png" alt="Pagination in Razor Pages"></p>
+<p>If your prefer, you can remove the query string by <a href="https://www.learnrazorpages.com/razor-pages/routing#route-templates">adding a route template</a> to the 
+content page:</p>
+<pre class="code">@page "{currentpage:int?}"</pre>
+<p>Now the <code>currentpage</code> value will appear as a segment in the URL:</p>
+<p><img src="./Simple Paging In ASP.NET Core Razor Pages_files/02-10-2018-16-51-06.png" alt="Pagination in Razor Pages"></p>
+<p>Fine so far, but what if the space for the paging links is constrained or there are many more 
+links? 
+They will wrap onto the next line which won't look so good. One solution is to 
+provide Prev and Next links, where the user can navigate 
+from one page to the next and back again using just two buttons. To manage that, 
+I add another pair of properties to the PageModel - <code>ShowPrevious</code> and
+<code>ShowNext</code>:</p>
+<script src="./Simple Paging In ASP.NET Core Razor Pages_files/3f954b63bb24121283b174568aa3f8fc.js.download" type="text/javascript"></script><link rel="stylesheet" href="./Simple Paging In ASP.NET Core Razor Pages_files/gist-embed-31007ea0d3bd9f80540adfbc55afc7bd.css"><div id="gist92247435" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-pagination-cshtml-cs" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-c ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-pagination-cshtml-cs-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-pagination-cshtml-cs-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">PaginationModel</span> : <span class="pl-en">PageModel</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-pagination-cshtml-cs-LC2" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-pagination-cshtml-cs-LC3" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">private</span> <span class="pl-k">readonly</span> <span class="pl-en">IPersonService</span> <span class="pl-smi">_personService</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-pagination-cshtml-cs-LC4" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-pagination-cshtml-cs-LC5" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-en">PaginationModel</span>(<span class="pl-en">IPersonService</span> <span class="pl-smi">personService</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-pagination-cshtml-cs-LC6" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-pagination-cshtml-cs-LC7" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">_personService</span> <span class="pl-k">=</span> <span class="pl-smi">personService</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-pagination-cshtml-cs-LC8" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-pagination-cshtml-cs-LC9" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-pagination-cshtml-cs-LC10" class="blob-code blob-code-inner js-file-line">    [<span class="pl-en">BindProperty</span>(<span class="pl-en">SupportsGet</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>)]</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-pagination-cshtml-cs-LC11" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">CurrentPage</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; } <span class="pl-k">=</span> <span class="pl-c1">1</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-pagination-cshtml-cs-LC12" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">Count</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-pagination-cshtml-cs-LC13" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">PageSize</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; } <span class="pl-k">=</span> <span class="pl-c1">10</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-pagination-cshtml-cs-LC14" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-pagination-cshtml-cs-LC15" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">TotalPages</span> <span class="pl-k">=&gt;</span> (<span class="pl-k">int</span>)<span class="pl-smi">Math</span>.<span class="pl-en">Ceiling</span>(<span class="pl-smi">decimal</span>.<span class="pl-en">Divide</span>(<span class="pl-smi">Count</span>, <span class="pl-smi">PageSize</span>));</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-pagination-cshtml-cs-LC16" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-pagination-cshtml-cs-LC17" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-en">List</span>&lt;<span class="pl-k">Models</span>.<span class="pl-en">Person</span>&gt; <span class="pl-smi">Data</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-pagination-cshtml-cs-LC18" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-pagination-cshtml-cs-LC19" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">bool</span> <span class="pl-smi">ShowPrevious</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">CurrentPage</span> <span class="pl-k">&gt;</span> <span class="pl-c1">1</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-pagination-cshtml-cs-LC20" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">bool</span> <span class="pl-smi">ShowNext</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">CurrentPage</span> <span class="pl-k">&lt;</span> <span class="pl-smi">TotalPages</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-pagination-cshtml-cs-LC21" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="file-pagination-cshtml-cs-LC22" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-en">Task</span> <span class="pl-en">OnGetAsync</span>()</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="file-pagination-cshtml-cs-LC23" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L24" class="blob-num js-line-number" data-line-number="24"></td>
+        <td id="file-pagination-cshtml-cs-LC24" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">Data</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">_personService</span>.<span class="pl-en">GetPaginatedResult</span>(<span class="pl-smi">CurrentPage</span>, <span class="pl-smi">PageSize</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L25" class="blob-num js-line-number" data-line-number="25"></td>
+        <td id="file-pagination-cshtml-cs-LC25" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">Count</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">_personService</span>.<span class="pl-en">GetCount</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L26" class="blob-num js-line-number" data-line-number="26"></td>
+        <td id="file-pagination-cshtml-cs-LC26" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L27" class="blob-num js-line-number" data-line-number="27"></td>
+        <td id="file-pagination-cshtml-cs-LC27" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/mikebrind/3f954b63bb24121283b174568aa3f8fc/raw/96fa61faac9e1c552589d9cf5b3b6a53e32f48cd/Pagination.cshtml.cs" style="float:right">view raw</a>
+        <a href="https://gist.github.com/mikebrind/3f954b63bb24121283b174568aa3f8fc#file-pagination-cshtml-cs">Pagination.cshtml.cs</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+<p>These properties are readonly expression bodied properties.They are used to 
+determine whether the Previous and Next buttons should appear:</p>
+<script src="./Simple Paging In ASP.NET Core Razor Pages_files/08aaff399fad6b08977f04d2647e7ffe.js.download" type="text/javascript"></script><link rel="stylesheet" href="./Simple Paging In ASP.NET Core Razor Pages_files/gist-embed-31007ea0d3bd9f80540adfbc55afc7bd.css"><div id="gist92247641" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-pagination-cshtml" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-html-razor ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-pagination-cshtml-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-pagination-cshtml-LC1" class="blob-code blob-code-inner js-file-line">&lt;<span class="pl-ent">div</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-pagination-cshtml-LC2" class="blob-code blob-code-inner js-file-line">    &lt;<span class="pl-ent">ul</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>pagination<span class="pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-pagination-cshtml-LC3" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">@if</span> (<span class="pl-smi">Model</span>.<span class="pl-smi">ShowPrevious</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-pagination-cshtml-LC4" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">{</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-pagination-cshtml-LC5" class="blob-code blob-code-inner js-file-line">            &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>page-item<span class="pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-pagination-cshtml-LC6" class="blob-code blob-code-inner js-file-line">                &lt;<span class="pl-ent">a</span> <span class="pl-e">asp-page</span>=<span class="pl-s"><span class="pl-pds">"</span>/pagination<span class="pl-pds">"</span></span> <span class="pl-e">asp-route-currentpage</span>=<span class="pl-s"><span class="pl-pds">"</span>@(Model.CurrentPage -1)<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>page-link<span class="pl-pds">"</span></span>&gt;<span class="pl-smi">Previous</span>&lt;/<span class="pl-ent">a</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-pagination-cshtml-LC7" class="blob-code blob-code-inner js-file-line">            &lt;/<span class="pl-ent">li</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-pagination-cshtml-LC8" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">}</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-pagination-cshtml-LC9" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">@if</span> (<span class="pl-smi">Model</span>.<span class="pl-smi">ShowNext</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-pagination-cshtml-LC10" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">{</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-pagination-cshtml-LC11" class="blob-code blob-code-inner js-file-line">            &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>page-item<span class="pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-pagination-cshtml-LC12" class="blob-code blob-code-inner js-file-line">                &lt;<span class="pl-ent">a</span> <span class="pl-e">asp-page</span>=<span class="pl-s"><span class="pl-pds">"</span>/pagination<span class="pl-pds">"</span></span> <span class="pl-e">asp-route-currentpage</span>=<span class="pl-s"><span class="pl-pds">"</span>@(Model.CurrentPage + 1)<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>page-link<span class="pl-pds">"</span></span>&gt;<span class="pl-smi">Next</span>&lt;/<span class="pl-ent">a</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-pagination-cshtml-LC13" class="blob-code blob-code-inner js-file-line">            &lt;/<span class="pl-ent">li</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-pagination-cshtml-LC14" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">}</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-pagination-cshtml-LC15" class="blob-code blob-code-inner js-file-line">    &lt;/<span class="pl-ent">ul</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-pagination-cshtml-LC16" class="blob-code blob-code-inner js-file-line">&lt;/<span class="pl-ent">div</span>&gt;</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/mikebrind/08aaff399fad6b08977f04d2647e7ffe/raw/8cc130fc014f625b6c2be237f4f50687a7bc1ae8/Pagination.cshtml" style="float:right">view raw</a>
+        <a href="https://gist.github.com/mikebrind/08aaff399fad6b08977f04d2647e7ffe#file-pagination-cshtml">Pagination.cshtml</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+<p><img src="./Simple Paging In ASP.NET Core Razor Pages_files/2018-10-02_21-54-24.png" alt="Razor Pages Pagination"></p>
+<p>This certainly saves space but could do with more improvement. So for the 
+final tweak, I will add a First and Last button, and use FontAwesome icons to 
+ensure that all of the links are the same size. So, two final properties are 
+added to the PageModel - <code>ShowFirst</code> and <code>ShowLast</code>:</p>
+<script src="./Simple Paging In ASP.NET Core Razor Pages_files/a323d4e34a23357e96da2a9c15ba7c56.js.download" type="text/javascript"></script><link rel="stylesheet" href="./Simple Paging In ASP.NET Core Razor Pages_files/gist-embed-31007ea0d3bd9f80540adfbc55afc7bd.css"><div id="gist92247771" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-pagination-cshtml-cs" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-c ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-pagination-cshtml-cs-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-pagination-cshtml-cs-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">PaginationModel</span> : <span class="pl-en">PageModel</span></td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-pagination-cshtml-cs-LC2" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-pagination-cshtml-cs-LC3" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">private</span> <span class="pl-k">readonly</span> <span class="pl-en">IPersonService</span> <span class="pl-smi">_personService</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-pagination-cshtml-cs-LC4" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-pagination-cshtml-cs-LC5" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-en">PaginationModel</span>(<span class="pl-en">IPersonService</span> <span class="pl-smi">personService</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-pagination-cshtml-cs-LC6" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-pagination-cshtml-cs-LC7" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">_personService</span> <span class="pl-k">=</span> <span class="pl-smi">personService</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-pagination-cshtml-cs-LC8" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-pagination-cshtml-cs-LC9" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-pagination-cshtml-cs-LC10" class="blob-code blob-code-inner js-file-line">    [<span class="pl-en">BindProperty</span>(<span class="pl-en">SupportsGet</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>)]</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-pagination-cshtml-cs-LC11" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">CurrentPage</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; } <span class="pl-k">=</span> <span class="pl-c1">1</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-pagination-cshtml-cs-LC12" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">Count</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-pagination-cshtml-cs-LC13" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">PageSize</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; } <span class="pl-k">=</span> <span class="pl-c1">10</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-pagination-cshtml-cs-LC14" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-pagination-cshtml-cs-LC15" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-smi">TotalPages</span> <span class="pl-k">=&gt;</span> (<span class="pl-k">int</span>)<span class="pl-smi">Math</span>.<span class="pl-en">Ceiling</span>(<span class="pl-smi">decimal</span>.<span class="pl-en">Divide</span>(<span class="pl-smi">Count</span>, <span class="pl-smi">PageSize</span>));</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-pagination-cshtml-cs-LC16" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-pagination-cshtml-cs-LC17" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-en">List</span>&lt;<span class="pl-k">Models</span>.<span class="pl-en">Person</span>&gt; <span class="pl-smi">Data</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-pagination-cshtml-cs-LC18" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-pagination-cshtml-cs-LC19" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">bool</span> <span class="pl-smi">ShowPrevious</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">CurrentPage</span> <span class="pl-k">&gt;</span> <span class="pl-c1">1</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-pagination-cshtml-cs-LC20" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">bool</span> <span class="pl-smi">ShowNext</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">CurrentPage</span> <span class="pl-k">&lt;</span> <span class="pl-smi">TotalPages</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-pagination-cshtml-cs-LC21" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">bool</span> <span class="pl-smi">ShowFirst</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">CurrentPage</span> <span class="pl-k">!=</span> <span class="pl-c1">1</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="file-pagination-cshtml-cs-LC22" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">bool</span> <span class="pl-smi">ShowLast</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">CurrentPage</span> <span class="pl-k">!=</span> <span class="pl-smi">TotalPages</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="file-pagination-cshtml-cs-LC23" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L24" class="blob-num js-line-number" data-line-number="24"></td>
+        <td id="file-pagination-cshtml-cs-LC24" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-en">Task</span> <span class="pl-en">OnGetAsync</span>()</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L25" class="blob-num js-line-number" data-line-number="25"></td>
+        <td id="file-pagination-cshtml-cs-LC25" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L26" class="blob-num js-line-number" data-line-number="26"></td>
+        <td id="file-pagination-cshtml-cs-LC26" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">Data</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">_personService</span>.<span class="pl-en">GetPaginatedResult</span>(<span class="pl-smi">CurrentPage</span>, <span class="pl-smi">PageSize</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L27" class="blob-num js-line-number" data-line-number="27"></td>
+        <td id="file-pagination-cshtml-cs-LC27" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">Count</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">_personService</span>.<span class="pl-en">GetCount</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L28" class="blob-num js-line-number" data-line-number="28"></td>
+        <td id="file-pagination-cshtml-cs-LC28" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-cs-L29" class="blob-num js-line-number" data-line-number="29"></td>
+        <td id="file-pagination-cshtml-cs-LC29" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/mikebrind/a323d4e34a23357e96da2a9c15ba7c56/raw/6975ad5102be43310e2fbeae7e17a5e072f75278/Pagination.cshtml.cs" style="float:right">view raw</a>
+        <a href="https://gist.github.com/mikebrind/a323d4e34a23357e96da2a9c15ba7c56#file-pagination-cshtml-cs">Pagination.cshtml.cs</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+<p>And the content page is amended accordingly:</p>
+<script src="./Simple Paging In ASP.NET Core Razor Pages_files/d43a4311a10bac78bbf34aecf021fdff.js.download" type="text/javascript"></script><link rel="stylesheet" href="./Simple Paging In ASP.NET Core Razor Pages_files/gist-embed-31007ea0d3bd9f80540adfbc55afc7bd.css"><div id="gist92247895" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-pagination-cshtml" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-html-razor ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-pagination-cshtml-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-pagination-cshtml-LC1" class="blob-code blob-code-inner js-file-line">&lt;<span class="pl-ent">div</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-pagination-cshtml-LC2" class="blob-code blob-code-inner js-file-line">    &lt;<span class="pl-ent">ul</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>pagination<span class="pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-pagination-cshtml-LC3" class="blob-code blob-code-inner js-file-line">        &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>page-item @(!Model.ShowFirst? <span class="pl-pds">"</span></span><span class="pl-e">disabled</span><span class="pl-s"><span class="pl-pds">"</span>:<span class="pl-pds">"</span><span class="pl-pds">"</span>)<span class="pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-pagination-cshtml-LC4" class="blob-code blob-code-inner js-file-line">            &lt;<span class="pl-ent">a</span> <span class="pl-e">asp-page</span>=<span class="pl-s"><span class="pl-pds">"</span>/pagination<span class="pl-pds">"</span></span> <span class="pl-e">asp-route-CurrentPage</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>page-link<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">i</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>fas fa-fast-backward<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">i</span>&gt;&lt;/<span class="pl-ent">a</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-pagination-cshtml-LC5" class="blob-code blob-code-inner js-file-line">        &lt;/<span class="pl-ent">li</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-pagination-cshtml-LC6" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-pagination-cshtml-LC7" class="blob-code blob-code-inner js-file-line">        &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>page-item @(!Model.ShowPrevious? <span class="pl-pds">"</span></span><span class="pl-e">disabled</span><span class="pl-s"><span class="pl-pds">"</span>:<span class="pl-pds">"</span><span class="pl-pds">"</span>)<span class="pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-pagination-cshtml-LC8" class="blob-code blob-code-inner js-file-line">            &lt;<span class="pl-ent">a</span> <span class="pl-e">asp-page</span>=<span class="pl-s"><span class="pl-pds">"</span>/pagination<span class="pl-pds">"</span></span> <span class="pl-e">asp-route-CurrentPage</span>=<span class="pl-s"><span class="pl-pds">"</span>@(Model.CurrentPage -1)<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>page-link<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">i</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>fas fa-step-backward<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">i</span>&gt;&lt;/<span class="pl-ent">a</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-pagination-cshtml-LC9" class="blob-code blob-code-inner js-file-line">        &lt;/<span class="pl-ent">li</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-pagination-cshtml-LC10" class="blob-code blob-code-inner js-file-line">        &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>page-item  @(!Model.ShowNext? <span class="pl-pds">"</span></span><span class="pl-e">disabled</span><span class="pl-s"><span class="pl-pds">"</span>:<span class="pl-pds">"</span><span class="pl-pds">"</span>)<span class="pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-pagination-cshtml-LC11" class="blob-code blob-code-inner js-file-line">            &lt;<span class="pl-ent">a</span> <span class="pl-e">asp-page</span>=<span class="pl-s"><span class="pl-pds">"</span>/pagination<span class="pl-pds">"</span></span> <span class="pl-e">asp-route-CurrentPage</span>=<span class="pl-s"><span class="pl-pds">"</span>@(Model.CurrentPage + 1)<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>page-link<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">i</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>fas fa-step-forward<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">i</span>&gt;&lt;/<span class="pl-ent">a</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-pagination-cshtml-LC12" class="blob-code blob-code-inner js-file-line">        &lt;/<span class="pl-ent">li</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-pagination-cshtml-LC13" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-pagination-cshtml-LC14" class="blob-code blob-code-inner js-file-line">        &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>page-item  @(!Model.ShowLast? <span class="pl-pds">"</span></span><span class="pl-e">disabled</span><span class="pl-s"><span class="pl-pds">"</span>:<span class="pl-pds">"</span><span class="pl-pds">"</span>)<span class="pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-pagination-cshtml-LC15" class="blob-code blob-code-inner js-file-line">            &lt;<span class="pl-ent">a</span> <span class="pl-e">asp-page</span>=<span class="pl-s"><span class="pl-pds">"</span>/pagination<span class="pl-pds">"</span></span> <span class="pl-e">asp-route-CurrentPage</span>=<span class="pl-s"><span class="pl-pds">"</span>@Model.TotalPages<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>page-link<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">i</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>fas fa-fast-forward<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">i</span>&gt;&lt;/<span class="pl-ent">a</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-pagination-cshtml-LC16" class="blob-code blob-code-inner js-file-line">        &lt;/<span class="pl-ent">li</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-pagination-cshtml-LC17" class="blob-code blob-code-inner js-file-line">    &lt;/<span class="pl-ent">ul</span>&gt;</td>
+      </tr>
+      <tr>
+        <td id="file-pagination-cshtml-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-pagination-cshtml-LC18" class="blob-code blob-code-inner js-file-line">&lt;/<span class="pl-ent">div</span>&gt;</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/mikebrind/d43a4311a10bac78bbf34aecf021fdff/raw/caf692271a36b383434049efd447eb88d20d2ef2/Pagination.cshtml" style="float:right">view raw</a>
+        <a href="https://gist.github.com/mikebrind/d43a4311a10bac78bbf34aecf021fdff#file-pagination-cshtml">Pagination.cshtml</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+<p>Here is the finished result:</p>
+<p><img src="./Simple Paging In ASP.NET Core Razor Pages_files/2018-10-02_22-09-36.png" alt="Razor Pages Pagination"></p>
+<p>On the first page, the Previous and First links are disabled, thanks to the styling from Bootstrap 4. They become active on subsequent pages:</p>
+<p><img src="./Simple Paging In ASP.NET Core Razor Pages_files/2018-10-02_22-12-10.png" alt="Razor Pages Pagination"></p>
+<h3>Summary</h3>
+<p>Pagination in Razor Pages is actually very simple once you get a grip of the basics. You can get very effective paging links rendered just by using the anchor tag helper and Bootstrap which is included as part of the standard Razor Pages project template.  You don't need to create special ViewModel or wrapper classes for the properties required to manage pagination . You can easily add them to the PageModel instead - unless you are likely to want to reuse pagination throughout the application. </p>
+        </section>
+    </div>
+    <div id="prev-next">
+        <span id="previous-article">
+            
+            <a title="Customising Routing Conventions In Razor Pages" href="https://www.mikesdotnetting.com/article/327/customising-routing-conventions-in-razor-pages"><i class="material-icons">fast_rewind</i> Customising Routing Conventions In Razor Pages</a>
+        </span>
+            <span id="next-article">
+            <a title="Adding Sorting To Paging In ASP.NET Core Razor Pages" href="https://www.mikesdotnetting.com/article/329/adding-sorting-to-paging-in-asp-net-core-razor-pages">Adding Sorting To Paging In ASP.NET Core Razor Pages <i class="material-icons">fast_forward</i></a>
+        </span>
+</div>
+    <!-- <div style="margin-bottom:40px;">
+        <h4>You might also like...</h4>
+
+        Matched Content
+    </div>-->
+    
+    <div id="widgets">
+        <div class="banner">
+            
+                <script async="" src="./Simple Paging In ASP.NET Core Razor Pages_files/f(12).txt" type="text/javascript"></script>
+                <!-- Alternating Bottom Leaderboard -->
+                <ins class="adsbygoogle" style="display: inline-block; width: 728px; height: 0px;" data-ad-client="ca-pub-8046723421340367" data-ad-slot="6233042939" data-adsbygoogle-status="done" data-overlap-observer-io="false"><ins id="aswift_1_expand" style="display: inline-table; border: none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 728px; background-color: transparent;"><ins id="aswift_1_anchor" style="display: block; border: none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 728px; background-color: transparent; overflow: hidden; opacity: 0;"><iframe id="aswift_1" name="aswift_1" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="728" height="90" frameborder="0" src="./Simple Paging In ASP.NET Core Razor Pages_files/ads(2).html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!2" data-google-query-id="CK2V0Zm2xugCFYMMtwAdTaMGZA" data-load-complete="true"></iframe></ins></ins></ins>
+                <script type="text/javascript">
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            
+        </div>
+    </div>
+</article>
+
+
+
+            </div>
+            <div class="col-3 side-bar" style="height: auto !important; min-height: 0px !important;">
+                <div id="other-projects">
+                    <h4>Other Sites</h4>
+                    <ul style="list-style-type:none;padding-left:0;">
+                        <li><a href="https://www.learnrazorpages.com/">Learn Razor Pages</a></li>
+                        <li><a href="https://www.learnentityframeworkcore.com/">Learn Entity Framework Core</a></li>
+                        <li><a href="https://www.learndapper.com/">Learn Dapper</a></li>
+                    </ul>
+                </div>
+
+                <div id="med-rect-ad">
+                    
+                        <script async="" src="./Simple Paging In ASP.NET Core Razor Pages_files/f(12).txt" type="text/javascript"></script>
+
+                        <ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-8046723421340367" data-ad-slot="8735003335" data-adsbygoogle-status="done" data-overlap-observer-io="false"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent;"><ins id="aswift_2_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent;"><iframe id="aswift_2" name="aswift_2" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="336" height="280" frameborder="0" src="./Simple Paging In ASP.NET Core Razor Pages_files/ads(3).html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!3" data-google-query-id="CP_-vvm0xugCFUkklgodKwcAsg" data-load-complete="true"></iframe></ins></ins></ins>
+                        <script type="text/javascript">
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    
+                </div>
+
+                
+<h4>Categories</h4>
+<ul class="category-list">
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/14/ado-net">ADO.NET (24)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/5/ajax">AJAX (17)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/4/asp-net-2-0">ASP.NET 2.0 (39)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/19/asp-net-3-5">ASP.NET 3.5 (43)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/33/asp-net-5">ASP.NET 5 (16)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/36/asp-net-core">ASP.NET Core (53)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/38/asp-net-identity">ASP.NET Identity (3)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/22/asp-net-mvc">ASP.NET MVC (89)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/26/asp-net-web-forms">ASP.NET Web Forms (31)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/27/asp-net-web-pages">ASP.NET Web Pages (89)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/39/blazor">Blazor (7)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/24/book-review">Book Review (7)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/3/c">C# (40)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/1/classic-asp">Classic ASP (13)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/15/css">CSS (3)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/23/entity-framework">Entity Framework (34)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/34/epplus">EPPlus (4)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/25/extension-method">Extension Method (6)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/18/general">General (12)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/7/html">HTML (8)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/30/html5">HTML5 (2)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/20/itextsharp">iTextSharp (11)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/6/javascript">Javascript (22)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/21/jquery">jQuery (34)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/17/linq">LINQ (5)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/41/localization">Localization (4)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/10/ms-access">MS Access (17)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/29/razor">Razor (55)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/37/razor-pages">Razor Pages (36)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/35/seo">SEO (3)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/8/sql">SQL (6)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/9/sql-server-express">SQL Server Express (2)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/40/typescript">TypeScript (1)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/16/vb-net">VB.Net (29)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/2/vbscript">VBScript (11)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/12/visual-studio">Visual Studio (5)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/32/web-api">Web API (1)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/31/webgrid">WebGrid (16)</a>
+        </li>
+        <li>
+            <a href="https://www.mikesdotnetting.com/category/28/webmatrix">WebMatrix (80)</a>
+        </li>
+</ul>
+                <div class="google-auto-placed" style="width: 100%; height: auto; clear: none; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-8046723421340367" data-adsbygoogle-status="done" style="display: block; margin: 10px auto 16px; background-color: transparent; height: 0px;" data-overlap-observer-io="true"><ins id="aswift_6_expand" style="display: inline-table; border: none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 270px; background-color: transparent;"><ins id="aswift_6_anchor" style="display: block; border: none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 270px; background-color: transparent; overflow: hidden; opacity: 0;"><iframe id="aswift_6" name="aswift_6" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="270" height="600" frameborder="0" src="./Simple Paging In ASP.NET Core Razor Pages_files/ads(4).html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!6" data-google-query-id="CKy77vq0xugCFVizlgodsqIFNw" data-load-complete="true"></iframe></ins></ins></ins></div><div id="half-page-ad" style="height: auto !important;">
+                    
+                        <script async="" src="./Simple Paging In ASP.NET Core Razor Pages_files/f(12).txt" type="text/javascript"></script>
+                        <!-- Mikesdotnetting Half Page -->
+                        <ins class="adsbygoogle" style="display: block; height: 0px;" data-ad-client="ca-pub-8046723421340367" data-ad-slot="5362965212" data-ad-format="auto" data-full-width-responsive="true" data-adsbygoogle-status="done" data-overlap-observer-io="true"><ins id="aswift_3_expand" style="display: inline-table; border: none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 270px; background-color: transparent;"><ins id="aswift_3_anchor" style="display: block; border: none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 270px; background-color: transparent; overflow: hidden; opacity: 0;"><iframe id="aswift_3" name="aswift_3" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="270" height="600" frameborder="0" src="./Simple Paging In ASP.NET Core Razor Pages_files/ads(5).html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!4" data-google-query-id="CLfYv_m0xugCFZCJlgodLzABeg" data-load-complete="true"></iframe></ins></ins></ins>
+                        <script type="text/javascript">
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                        
+                        <h4>Archive</h4>
+    <h5 class="archive-head">2020</h5>
+    <ul class="archive-list">
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2020/1">January 2020 (1)</a>
+            </li>
+    </ul>
+    <h5 class="archive-head">2019</h5>
+    <ul class="archive-list">
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2019/12">December 2019 (3)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2019/11">November 2019 (3)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2019/10">October 2019 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2019/8">August 2019 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2019/7">July 2019 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2019/5">May 2019 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2019/4">April 2019 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2019/3">March 2019 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2019/2">February 2019 (1)</a>
+            </li>
+    </ul>
+    <h5 class="archive-head">2018</h5>
+    <ul class="archive-list">
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2018/10">October 2018 (3)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2018/9">September 2018 (4)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2018/8">August 2018 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2018/7">July 2018 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2018/5">May 2018 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2018/3">March 2018 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2018/2">February 2018 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2018/1">January 2018 (1)</a>
+            </li>
+    </ul>
+    <h5 class="archive-head">2017</h5>
+    <ul class="archive-list">
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2017/9">September 2017 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2017/7">July 2017 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2017/5">May 2017 (3)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2017/2">February 2017 (2)</a>
+            </li>
+    </ul>
+    <h5 class="archive-head">2016</h5>
+    <ul class="archive-list">
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2016/10">October 2016 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2016/9">September 2016 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2016/7">July 2016 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2016/6">June 2016 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2016/5">May 2016 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2016/4">April 2016 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2016/3">March 2016 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2016/2">February 2016 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2016/1">January 2016 (2)</a>
+            </li>
+    </ul>
+    <h5 class="archive-head">2015</h5>
+    <ul class="archive-list">
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2015/12">December 2015 (3)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2015/10">October 2015 (3)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2015/9">September 2015 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2015/8">August 2015 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2015/7">July 2015 (4)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2015/6">June 2015 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2015/5">May 2015 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2015/4">April 2015 (4)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2015/3">March 2015 (5)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2015/2">February 2015 (4)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2015/1">January 2015 (4)</a>
+            </li>
+    </ul>
+    <h5 class="archive-head">2014</h5>
+    <ul class="archive-list">
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2014/10">October 2014 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2014/8">August 2014 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2014/7">July 2014 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2014/6">June 2014 (12)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2014/5">May 2014 (11)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2014/4">April 2014 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2014/3">March 2014 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2014/2">February 2014 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2014/1">January 2014 (1)</a>
+            </li>
+    </ul>
+    <h5 class="archive-head">2013</h5>
+    <ul class="archive-list">
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2013/12">December 2013 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2013/11">November 2013 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2013/10">October 2013 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2013/8">August 2013 (3)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2013/7">July 2013 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2013/6">June 2013 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2013/5">May 2013 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2013/2">February 2013 (3)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2013/1">January 2013 (2)</a>
+            </li>
+    </ul>
+    <h5 class="archive-head">2012</h5>
+    <ul class="archive-list">
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2012/12">December 2012 (4)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2012/11">November 2012 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2012/10">October 2012 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2012/9">September 2012 (5)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2012/8">August 2012 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2012/7">July 2012 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2012/6">June 2012 (3)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2012/5">May 2012 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2012/2">February 2012 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2012/1">January 2012 (1)</a>
+            </li>
+    </ul>
+    <h5 class="archive-head">2011</h5>
+    <ul class="archive-list">
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2011/12">December 2011 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2011/10">October 2011 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2011/9">September 2011 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2011/8">August 2011 (6)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2011/5">May 2011 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2011/4">April 2011 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2011/3">March 2011 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2011/1">January 2011 (5)</a>
+            </li>
+    </ul>
+    <h5 class="archive-head">2010</h5>
+    <ul class="archive-list">
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2010/12">December 2010 (3)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2010/10">October 2010 (4)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2010/9">September 2010 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2010/8">August 2010 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2010/7">July 2010 (9)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2010/6">June 2010 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2010/5">May 2010 (7)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2010/4">April 2010 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2010/3">March 2010 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2010/2">February 2010 (4)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2010/1">January 2010 (2)</a>
+            </li>
+    </ul>
+    <h5 class="archive-head">2009</h5>
+    <ul class="archive-list">
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2009/12">December 2009 (4)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2009/11">November 2009 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2009/10">October 2009 (4)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2009/9">September 2009 (3)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2009/8">August 2009 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2009/7">July 2009 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2009/6">June 2009 (4)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2009/5">May 2009 (3)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2009/4">April 2009 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2009/3">March 2009 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2009/2">February 2009 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2009/1">January 2009 (5)</a>
+            </li>
+    </ul>
+    <h5 class="archive-head">2008</h5>
+    <ul class="archive-list">
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2008/12">December 2008 (4)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2008/11">November 2008 (5)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2008/10">October 2008 (6)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2008/7">July 2008 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2008/5">May 2008 (3)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2008/4">April 2008 (2)</a>
+            </li>
+    </ul>
+    <h5 class="archive-head">2007</h5>
+    <ul class="archive-list">
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2007/11">November 2007 (5)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2007/9">September 2007 (1)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2007/8">August 2007 (8)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2007/7">July 2007 (2)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2007/6">June 2007 (3)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2007/5">May 2007 (20)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2007/4">April 2007 (14)</a>
+            </li>
+            <li>
+                <a href="https://www.mikesdotnetting.com/archive/2007/3">March 2007 (3)</a>
+            </li>
+    </ul>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            © 2006 - 2020 - Mike Brind - <a href="https://www.mikesdotnetting.com/privacy">Privacy</a>
+        </div>
+    </footer>
+    <div class="cookie-box" id="cookie-warning" style="display: none;">
+        <div class="cookie-box-contents" id="mikesdotnetting">This site uses cookies to analyse traffic, remember your preferences, and optimise your experience.</div>
+        <div class="cookie-box-buttons"><a href="https://www.mikesdotnetting.com/privacy" class="cookie-button">Learn more</a><a href="https://www.mikesdotnetting.com/article/328/simple-paging-in-asp-net-core-razor-pages#" class="cookie-button" id="cookie-close">Close</a></div>
+    </div>
+    
+    
+        <script src="./Simple Paging In ASP.NET Core Razor Pages_files/jquery.min.js.download" crossorigin="anonymous" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" type="text/javascript">
+        </script>
+<script type="text/javascript">(window.jQuery||document.write("\u003Cscript src=\u0022\/lib\/jquery\/dist\/jquery.min.js\u0022 crossorigin=\u0022anonymous\u0022 integrity=\u0022sha256-FgpCb\/KJQlLNfOu91ta32o\/NMZxltwRo8QtmkMRdAu8=\u0022\u003E\u003C\/script\u003E"));</script>
+        <script src="./Simple Paging In ASP.NET Core Razor Pages_files/bootstrap.bundle.min.js.download" crossorigin="anonymous" integrity="sha256-E/V4cWE4qvAeO5MOhjtGtqDzPndRO1LBk8lJ/PR7CA4=" type="text/javascript">
+        </script>
+<script type="text/javascript">(window.jQuery && window.jQuery.fn && window.jQuery.fn.modal||document.write("\u003Cscript src=\u0022\/lib\/bootstrap\/dist\/js\/bootstrap.bundle.min.js\u0022 crossorigin=\u0022anonymous\u0022 integrity=\u0022sha256-E\/V4cWE4qvAeO5MOhjtGtqDzPndRO1LBk8lJ\/PR7CA4=\u0022\u003E\u003C\/script\u003E"));</script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async="" src="./Simple Paging In ASP.NET Core Razor Pages_files/js" type="text/javascript"></script>
+        <script type="text/javascript">
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-1264020-9');
+        </script>
+
+    
+    <script src="./Simple Paging In ASP.NET Core Razor Pages_files/site.js.download" type="text/javascript"></script>
+
+    
+    <script type="text/javascript">
+    $(function () {
+        $.post('/api/article', {
+            id: 328,
+            __RequestVerificationToken: 'CfDJ8ACbeZeACatKgJQmJPVAPm61Cx3y1zEnfJXWK2cfZZ978VmeDhsNRdtRFMFvXKc_bx3M6VWQVlvbm5K3ngME0SVrRA9V36swkN-6zHEH4mKETCvpe07T4RYRfHKzOxQdl_HhFQGnB-0k2oOqivj_eoE'
+        });
+    })
+    </script>
+
+
+
+<iframe id="google_osd_static_frame_827561927259" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./Simple Paging In ASP.NET Core Razor Pages_files/saved_resource(2).html"></iframe><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;"><ins id="aswift_4_expand" style="display:inline-table;border:none;height:0px;margin:0;padding:0;position:relative;visibility:visible;width:0px;background-color:transparent;"><ins id="aswift_4_anchor" style="display:block;border:none;height:0px;margin:0;padding:0;position:relative;visibility:visible;width:0px;background-color:transparent;"><iframe id="aswift_4" name="aswift_4" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" src="./Simple Paging In ASP.NET Core Razor Pages_files/ads(6).html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!4" data-load-complete="true"></iframe></ins></ins></ins></body><iframe id="google_esf" name="google_esf" src="./Simple Paging In ASP.NET Core Razor Pages_files/zrt_lookup.html" data-ad-client="ca-pub-8046723421340367" style="display: none;"></iframe></html>

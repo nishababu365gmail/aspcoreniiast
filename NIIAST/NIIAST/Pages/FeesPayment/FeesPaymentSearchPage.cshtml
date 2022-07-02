@@ -1,0 +1,106 @@
+﻿@page
+@model NIIAST.FeesPaymentSearchPageModel
+@{
+    ViewData["Title"] = "FeesPaymentSearch";
+    var totalfeepaid = 0.0;
+}
+
+    <form method="post">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+
+                        <div class="col-md-3">
+                            @* <input type="text" asp-for="@Model.MasterSearch." class="form-control" placeholder="First Name" />*@
+                            <select asp-for="@Model.MasterSearch.StudentId" asp-items="Model.StudentList" class="form-control" style="width:200px">
+                                <option value="">Select Student</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select asp-for="@Model.MasterSearch.CourseId" asp-items="Model.CourseList" class="form-control" style="width:200px">
+                                <option value="">Select Courses</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <button class="btn-showproceedings" asp-page-handler="GetFeesPaymentDetails">Show Students</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+<table class="table table-bordered table-responsive-md table-sm">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Student Name</th>
+            <th>Course</th>
+            <th>Fees Total</th>
+            <th>Fees Paid</th>
+            <th>Fees Due</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in Model.MasterResultlst)
+            {
+                <tr padding="10">
+                    <td padding="0"><img class="minusimage" id="@String.Concat("minusimg_",@item.FeesPaymentMasterId)" src="~/img/plus.png" style="visibility: hidden;" /></td>
+                    <td padding="0">@item.StuFirstName</td>
+                    <td padding="0">@item.CourseName</td>
+                    <td padding="0">@item.FeesDueAmount</td>
+                    <td padding="0">@item.FeesPaid</td>
+                    <td padding="0">@(Convert.ToDecimal(item.FeesDueAmount) - Convert.ToDecimal(item.FeesPaid))</td>
+
+
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td>
+
+                        <table id="@item.FeesPaymentMasterId" class="table table-bordered table-responsive-md thead-dark">
+                            <thead>
+                                <tr>
+                                    <th padding="0"><img class="plusimage" id="@String.Concat("img_",@item.FeesPaymentMasterId)" src="~/img/plus.png" /></th>
+
+                                    <th>
+                                        Fees
+                                    </th>
+                                    <th>
+                                        Paid Date
+                                    </th>
+                                    <th>View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var nishaitem in Model.DetailResultlst)
+                                {
+                                    if (nishaitem.MasterFeesPaymentId == item.FeesPaymentMasterId)
+                                    {
+                                <tr>
+                                    <td padding="0"></td>
+                                    <td padding="0">@nishaitem.Fees</td>
+                                    <td padding="0">@nishaitem.FeesPaidDate</td>
+                                    <td padding="0">
+                                        <a asp-page="/FeesPayment/FeesPaymentPage" asp-route-FeesPaymentId="@nishaitem.FeesPaymentId"
+                                           class="btn btn-primary m-1 table-anchor table-anchor-line-height">View</a>
+                                    </td>
+                                </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </td>
+
+                </tr>
+
+            }
+            
+        }
+    </tbody>
+</table>
+

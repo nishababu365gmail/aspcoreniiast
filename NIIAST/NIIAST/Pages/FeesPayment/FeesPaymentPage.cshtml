@@ -1,0 +1,120 @@
+﻿@page
+@model NIIAST.FeesPaymentPageModel
+@{
+    ViewData["Title"] = "FeesPaymentPage";
+}
+
+    <form method="post">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" >
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2" >
+                    
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <div class="col-md-3" style="border:double">
+                                    <label for="StudentId">Student Name</label>
+                                </div>
+                                <div class="col-md-7">
+
+                                    <select asp-for="ObjFeesPayment.StudentId" asp-items="Model.Studentlist" class="form-control"  style="@(Model.ObjFeesPayment.FeesPaymentId<=0 ?  "display:block":"display:none");width:200px">
+                                        <option value="">Select Student</option>
+                                    </select>
+                                    <input type="text" asp-for="@Model.StudentName" class="form-control" style="@(Model.ObjFeesPayment.FeesPaymentId>0 ?  "display:block":"display:none")" readonly />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    @*onchange="this.form.submit();"*@
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <label for="CourseId">Course</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <select asp-for="ObjFeesPayment.CourseId" asp-items="Model.Courselist" class="form-control"    style="@(Model.ObjFeesPayment.FeesPaymentId<=0 ?  "display:block":"display:none");width:200px" >
+                                        <option value="">Select Course</option>
+                                    </select>
+                                    <input type="text" asp-for="@Model.CourseName" class="form-control" style="@(Model.ObjFeesPayment.FeesPaymentId>0 ?  "display:block":"display:none")" readonly/>
+                                    @*@(ObjFeesPayment.FeesPaymentId ? 0 "display:block" : "display:none")*@
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <label for="FeesDueAmount">Total Fees</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" asp-for="ObjFeesPayment.FeesDueAmount" class="form-control" style="width:120px" placeholder="Total Fees" readonly />
+                                    <span asp-validation-for="ObjFeesPayment.FeesDueAmount"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <label for="StuRegistrationDate">Fees</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" asp-for="ObjFeesPayment.Fees" class="form-control" style="width:120px" />
+                                    <span asp-validation-for="ObjFeesPayment.Fees"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    Fees To be paid
+                                    <input type="text" asp-for="@Model.FeesTobePaid" class="form-control" style="width:120px" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <label for="FeesPaidDate">Payment Date</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" asp-for="ObjFeesPayment.FeesPaidDate" class="form-control" placeholder="Paid Date"
+                                           onfocus="(this.type='date')"
+                                           onblur="(this.type='text')" style="width:150px" />
+                                    <span asp-validation-for="ObjFeesPayment.FeesPaidDate"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <input type="hidden" asp-for="ObjFeesPayment.FeesPaymentId" />
+                    
+                    <div class="col-md-2">
+                        <div class="col-md-4">
+                            <input type="submit" class="btn btn-primary" value="Save Fees" style="padding-left:20px"id="btnSave" />
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
